@@ -4,14 +4,14 @@ Analysis of a 15-sprint software project comparing classical EVM forecasting aga
 
 ## Overview
 
-This repository contains a complete EVM workflow on synthetic sprint data (values in $m). Budget at Completion (BAC) is $1.505m. Sprints 1–8 are used as history; sprints 9–15 are held out to evaluate forecasts.
+This repository contains a complete EVM workflow on synthetic sprint data (values in $m). Budget at Completion (BAC) is $1.505m. Sprints 1 to 8 are used as history; sprints 9 to 15 are held out to evaluate forecasts.
 
 Project narrative encoded in the data:
 
-* Sprints 1–4: on track, variances near zero
-* Sprints 5–8: deterioration due to scope creep and overruns
-* Sprints 9–12: partial recovery
-* Sprints 13–15: plateau with slight slip, ending over budget and behind schedule
+* Sprints 1 to 4: on track, variances near zero
+* Sprints 5 to 8: deterioration due to scope creep and overruns
+* Sprints 9 to 12: partial recovery
+* Sprints 13 to 15: plateau with slight slip, ending over budget and behind schedule
 
 ## Methods
 
@@ -22,13 +22,13 @@ Project narrative encoded in the data:
    * Atypical (return to planned rate): `EAC = AC + (BAC − EV)` → $1.576m
    * Composite (bonus): `EAC = AC + (BAC − EV) / (CPI × SPI)` → $1.708m
    * Actual final cost was $1.523m. The atypical formula was closer because the team recovered after sprint 8.
-4. **AI-enhanced forecasting:** Multi-output `RandomForestRegressor (n_estimators=300, max_depth=4, random_state=9)` trained on sprints 1–8 to predict CPI/SPI for sprints 9–15. Features: `sprint_id, cum_PV, cum_EV, cum_AC, CV, SV, CPI_lag1, SPI_lag1`. Baseline is traditional flat-line CPI/SPI held at sprint-8 values.
+4. **AI-enhanced forecasting:** Multi-output `RandomForestRegressor (n_estimators=300, max_depth=4, random_state=9)` trained on sprints 1 to 8 to predict CPI/SPI for sprints 9 to 15. Features: `sprint_id, cum_PV, cum_EV, cum_AC, CV, SV, CPI_lag1, SPI_lag1`. Baseline is traditional flat-line CPI/SPI held at sprint-8 values.
 
 ## Results
 
 Final sprint (15): `CV = $-0.073m, SV = $-0.055m, CPI = 0.952, SPI = 0.963`.
 
-Forecast error on sprints 9–15:
+Forecast error on sprints 9 to 15:
 
 | Metric | Random Forest | Traditional (flat) |
 |---|---|---|
@@ -37,7 +37,7 @@ Forecast error on sprints 9–15:
 | SPI MAE | 0.0215 | 0.0265 |
 | SPI RMSE | 0.0225 | 0.0278 |
 
-The flat EVM forecast froze CPI/SPI at the sprint-8 trough and under-predicted every recovery sprint. The Random Forest predicted a partial rebound (CPI ~0.918–0.924, SPI ~0.934–0.939) — directionally correct but below the actual recovery to CPI ~0.955 / SPI ~0.964, because the training window contained no recovery example. Full per-sprint comparison is in `report.md`.
+The flat EVM forecast froze CPI/SPI at the sprint-8 trough and under-predicted every recovery sprint. The Random Forest predicted a partial rebound (CPI ~0.918 to 0.924, SPI ~0.934 to 0.939). That is the right direction but below the actual recovery to CPI ~0.955 / SPI ~0.964, because the training window contained no recovery example. Full per-sprint comparison is in `report.md`.
 
 ## Visuals
 
@@ -45,7 +45,7 @@ The flat EVM forecast froze CPI/SPI at the sprint-8 trough and under-predicted e
 
 ![EVM Performance Dashboard](evm_dashboard.png)
 
-### AI vs traditional forecast (CPI/SPI, sprints 9–15)
+### AI vs traditional forecast (CPI/SPI, sprints 9 to 15)
 
 ![AI vs Traditional EVM Forecast](evm_forecast_comparison.png)
 
